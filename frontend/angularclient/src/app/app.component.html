@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="riga">
+    <h2> {{ title }} </h2>
+    <li>
+      <a routerLink="/articoli" class="routerArticoli">Lista Articoli</a>
+    </li>
+    <li>
+      <a routerLink="/home" class="home">Home</a>
+    </li>
+    <li>
+      <a routerLink="/websocket" class="home">Websocket</a>
+    </li>
+  </div>
+  <div>
+    <router-outlet></router-outlet>     <!-- Qui è dove verrà renderizzato quello preso da routerLink -->
+  </div>
+</div>
