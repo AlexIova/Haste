@@ -25,6 +25,7 @@ public class BackendApplication {
 			articoloRepository.save(new Articolo("Penna", "Articoli vintage inutilizzati"));
 
 			articoloRepository.findAll().forEach(System.out::println);
+
 		};
 	}
 
