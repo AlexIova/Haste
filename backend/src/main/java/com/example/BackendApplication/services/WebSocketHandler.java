@@ -21,7 +21,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         WSMsg msgComm = objectMapper.readValue(payload, WSMsg.class);
 
-        System.out.println(msgComm.toString());
+        System.out.println(msgComm);
+
+        WSMsg wsMsg = new WSMsg("chat", "Ciao sono Spring!");
+        session.sendMessage(new TextMessage(objectMapper.writeValueAsString(wsMsg)));
+
 
     }
 

@@ -11,6 +11,8 @@ import { HomeComponent } from './component/home/home.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { WebsocketComponent } from './component/websocket/websocket.component';
 import { WebsocketService } from './service/websocket-service/websocket-service.service';
+import { AstaComponent } from './component/asta/asta.component';
+import { MQService } from './service/mqtt-service/mqtt-service.service';
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { WebsocketService } from './service/websocket-service/websocket-service.
     AppComponent,
     ListaArticoliComponent,
     HomeComponent,
-    WebsocketComponent
+    WebsocketComponent,
+    AstaComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { WebsocketService } from './service/websocket-service/websocket-service.
   ],
   providers: [
     ArticoloService,
-    WebsocketService
+    WebsocketService,
+    MQService
   ],
   bootstrap: [AppComponent]
 })

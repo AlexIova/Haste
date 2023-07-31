@@ -1,1 +1,4 @@
-<button (click)="sendMessage()">Invia messaggio</button>
+<div id="contenuto-ws">
+    <button (click)="sendMessage()">Invia messaggio</button>
+    <div id="contenutoChat" *ngFor="let content of contenuto"> {{ content["content"] }} </div>
+</div>

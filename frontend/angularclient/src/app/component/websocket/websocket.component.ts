@@ -10,6 +10,8 @@ import { WebsocketService } from 'src/app/service/websocket-service/websocket-se
 
 export class WebsocketComponent {
 
+  contenuto: any[] = [];
+
   constructor(private webSocketService: WebsocketService){
 
   }
@@ -19,7 +21,8 @@ export class WebsocketComponent {
 
     socket.subscribe( {
       next: (message) => {
-        console.log("messaggio ricevuto: ", message);
+        this.contenuto.push(message);
+        console.log("Arrivato messaggio!");
       }, 
       error: (error) => {
         console.error('WebSocket error:', error);
@@ -32,8 +35,9 @@ export class WebsocketComponent {
   }
 
   sendMessage() {
-    const message = { type: "chat", content: "Ciao, sono Angular!" }
+    const message = { "type": "chat", "content": "Ciao, sono Angular!" }
     this.webSocketService.getSocket().next(message);
+    this.contenuto.push(message);
   }
 
 }

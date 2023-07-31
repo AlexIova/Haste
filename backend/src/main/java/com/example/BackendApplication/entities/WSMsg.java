@@ -1,42 +1,33 @@
 package com.example.BackendApplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class WSMsg {
 
-    private String provenienza;
-    private int id;
-    private String contenuto;
+    @JsonProperty("type")
+    private String type;
 
-    public int getId() {
-        return id;
+    @JsonProperty("content")
+    private String content;
+
+    public WSMsg(){
+
     }
 
-    public String getProvenienza(){
-        return provenienza;
+    public WSMsg(String tipo, String contenuto){
+        this.type = tipo;
+        this.content = contenuto;
     }
 
-    public String getContenuto(){
-        return contenuto;
-    }
-
-    public void setID(int id){
-        this.id = id;
-    }
-
-
-    public void setProvenienza(String provenienza){
-        this.provenienza = provenienza;
-    }
-
-    public void setContenuto(String contenuto) {
-        this.contenuto = contenuto;
+    public String getContent(){
+        return content;
     }
 
     @Override
     public String toString(){
-        return "MessaggioComm{" +
-                "provenienza='" + provenienza + '\'' +
-                ", id=" + id +
-                ", contenuto='" + contenuto + '\'' +
+        return "MessaggioComm{" + type +
+                ", contenuto='" + content + '\'' +
                 '}';
     }
     
