@@ -4,13 +4,15 @@ import { ListaArticoliComponent } from './component/lista-articoli/lista-articol
 import { HomeComponent } from './component/home/home.component';
 import { WebsocketComponent } from './component/websocket/websocket.component';
 import { AstaComponent } from './component/asta/asta.component';
+import { ListaSottoscrizioniComponent } from './component/lista-sottoscrizioni/lista-sottoscrizioni.component';
 
 
 const routes: Routes = [
   { path: "articoli", component: ListaArticoliComponent },
   { path: "home", component: HomeComponent },
   { path: "websocket", component: WebsocketComponent },
-  { path: "asta", component: AstaComponent }
+  { path: "asta", component: AstaComponent },
+  { path: "sottoscrizioni", component: ListaSottoscrizioniComponent }
 ];
 
 @NgModule({

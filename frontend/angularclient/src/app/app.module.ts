@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { WebsocketComponent } from './component/websocket/websocket.component';
 import { WebsocketService } from './service/websocket-service/websocket-service.service';
 import { AstaComponent } from './component/asta/asta.component';
 import { MQService } from './service/mqtt-service/mqtt-service.service';
+import { ListaSottoscrizioniComponent } from './component/lista-sottoscrizioni/lista-sottoscrizioni.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -21,13 +23,20 @@ import { MQService } from './service/mqtt-service/mqtt-service.service';
     ListaArticoliComponent,
     HomeComponent,
     WebsocketComponent,
-    AstaComponent
+    AstaComponent,
+    ListaSottoscrizioniComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     ArticoloService,
