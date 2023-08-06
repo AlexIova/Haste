@@ -15,6 +15,7 @@ import { AstaComponent } from './component/asta/asta.component';
 import { MQService } from './service/mqtt-service/mqtt-service.service';
 import { ListaSottoscrizioniComponent } from './component/lista-sottoscrizioni/lista-sottoscrizioni.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { PushNotificationComponent } from './component/push-notification/push-notification.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HomeComponent,
     WebsocketComponent,
     AstaComponent,
-    ListaSottoscrizioniComponent
+    ListaSottoscrizioniComponent,
+    PushNotificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HttpClientModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
+      enabled: true,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
