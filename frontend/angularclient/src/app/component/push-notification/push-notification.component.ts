@@ -8,13 +8,20 @@ import { PushNotificationService } from 'src/app/service/pushNotification-servic
 })
 export class PushNotificationComponent {
 
+  showNotificationButton: boolean = false;
+
   constructor(private pnt: PushNotificationService){
 
   }
 
 
-  test(){
+  test1(){
     this.pnt.subscribeToNotifications();
+  }
+
+  test2(){
+    this.pnt.askForNotification();
+    console.log("ho chiesto per la notifica");
   }
 
 

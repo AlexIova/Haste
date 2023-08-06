@@ -23,15 +23,20 @@ export class PushNotificationService {
     })
     .then( (sub) => {
       this.sendPushSubscriptionToServer(sub);
-      console.log(sub)
     })
     .catch( (err) => console.error("Could not subscribe to notifications", err));
     
+    self.addEventListener("push", (event) => {
+      console.log(event);
+    })
+
   }
 
   private sendPushSubscriptionToServer(subscription: PushSubscription) {
-    // const sub: SubWId = new SubWId(subscription.endpoint, subscription.getKey("auth"));
-    const sub: SubWId = new SubWId(subscription.endpoint);
+    const sub: SubWId = new SubWId(subscription.endpoint, this.arrayBufferToBase64(subscription.getKey('auth')));
+    // const sub: SubWId = new SubWId(subscription.endpoint);
+
+    console.log(sub)
 
     const requestOptions: Object = {
       responseType: 'text'
@@ -46,4 +51,37 @@ export class PushNotificationService {
       }
     });
   }
+
+
+  private arrayBufferToBase64( buffer: ArrayBuffer | null) {
+    if(buffer === null)
+      return null;
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+  }
+
+
+  askForNotification(){
+
+    const requestOptions: Object = {
+      responseType: 'text'
+    }
+
+    this.http.get(this.urlBackend + "/sendPush", requestOptions).subscribe({
+      next: (response) => {
+        console.log(`Response received: ${response}`);
+      },
+      error: (error) => {
+        console.error("Error: ", error);
+      }
+    });
+
+  }
+
+
 }

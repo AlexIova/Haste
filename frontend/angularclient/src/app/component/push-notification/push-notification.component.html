@@ -1,5 +1,7 @@
 <h2>Benvenuto nel test delle notifiche!</h2>
 <p>Qui proveremo a vedere se riusciamo a farci mandare delle notifiche</p>
-<div id="contenuto-notifiche">
-    <button (click)="test()">TEST ME!</button>
+<button (click)="test1(); showNotificationButton=true">TEST ME!</button>
+<div *ngIf="showNotificationButton" id="second-button">
+    <p>Qui proveremo a vedere se riusciamo a farci mandare delle notifiche</p>
+    <button (click)="test2()">Hello, it's me</button>
 </div>

@@ -1,16 +1,14 @@
 package com.example.BackendApplication.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class PushSubscription {
+public class PushSubscriptionEntity {
     @Id
     private long id;
     private String endpoint;
-    // private byte[] keys;
+    private String auth;
 
     public long getId() {
         return id;
@@ -20,18 +18,16 @@ public class PushSubscription {
         return endpoint;
     }
 
-    /*
-    public String getKeys() {
-        return keys.toString();
+    public String getAuth() {
+        return auth.toString();
     }
-    */
 
     @Override
     public String toString() {
         return "PushSubscription{" +
                 "id=" + id +
                 ", endpoint='" + endpoint + '\'' +
-//                ", keys='" + keys + '\'' +
+                ", keys='" + auth + '\'' +
                 '}';
     }
 }

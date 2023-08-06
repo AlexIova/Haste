@@ -2,19 +2,14 @@ export class SubWId {
 
     id: number;
     endpoint: string;
-    // keys: ArrayBuffer | null;
+    auth: string | null;
 
-    // constructor(ep: string, k: ArrayBuffer | null){
-    //     this.id = this.getRandID();
-    //     this.endpoint = ep;
-    //     this.keys = k;
-    // }
-    
-
-    constructor(ep: string){
+    constructor(ep: string, k: string | null){
         this.id = this.getRandID();
         this.endpoint = ep;
+        this.auth = k;
     }
+    
 
     private getRandomInt(min: number, max: number): number {
         return Math.floor(Math.random() * (max - min + 1)) + min;
