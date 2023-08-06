@@ -1,5 +1,6 @@
 package com.example.BackendApplication.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -7,27 +8,19 @@ import jakarta.persistence.Id;
 public class PushSubscriptionEntity {
     @Id
     private long id;
-    private String endpoint;
-    private String auth;
+    @Column(length = 100000)
+    private String subscription;
 
-    public long getId() {
-        return id;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public String getAuth() {
-        return auth.toString();
+    public String getSubscription() {
+        return subscription;
     }
 
     @Override
     public String toString() {
-        return "PushSubscription{" +
+        return "PushSubscriptionEntity{" +
                 "id=" + id +
-                ", endpoint='" + endpoint + '\'' +
-                ", keys='" + auth + '\'' +
+                ", subscription='" + subscription + '\'' +
                 '}';
     }
+
 }

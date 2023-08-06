@@ -4,6 +4,8 @@ package com.example.BackendApplication.controllers;
 import com.example.BackendApplication.entities.PushSubscriptionEntity;
 import com.example.BackendApplication.repositories.PushSubscriptionsRepository;
 import com.example.BackendApplication.services.PushNotificationService;
+import com.google.gson.Gson;
+import nl.martijndwars.webpush.Subscription;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +20,21 @@ public class PushNotificationController {
     }
 
     @PostMapping("/pushSubscription")
-    public ResponseEntity<String> saveSubscription(@RequestBody PushSubscriptionEntity subscription){
+    public ResponseEntity<String> saveSubscription(@RequestBody PushSubscriptionEntity subscriptionEntity){
         System.out.println("arrivato qualcosa!");
         // Save the subscription into the database
-        pnsRepository.save(subscription);
-        System.out.println(subscription);
+        pnsRepository.save(subscriptionEntity);
+        System.out.println("salvando: " + subscriptionEntity);
         return ResponseEntity.ok("Subscription saved");
     }
 
     @GetMapping("/sendPush")
     public ResponseEntity<String> sendPush(){
         Iterable<PushSubscriptionEntity> subscriptionList = pnsRepository.findAll();
-        PushSubscriptionEntity subscription = subscriptionList.iterator().next();
+        PushSubscriptionEntity subscriptionEntity = subscriptionList.iterator().next();
 
-        System.out.println("Ora dovrei mandare: " + subscription);
 
+        Subscription subscription = new Gson().fromJson(subscriptionEntity.getSubscription(), Subscription.class);
         PushNotificationService pushNotificationService = new PushNotificationService(subscription);
 
         pushNotificationService.sendPushNotification("Hello from the other side!");

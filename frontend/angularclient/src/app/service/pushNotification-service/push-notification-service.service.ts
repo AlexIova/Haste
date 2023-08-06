@@ -33,8 +33,9 @@ export class PushNotificationService {
   }
 
   private sendPushSubscriptionToServer(subscription: PushSubscription) {
-    const sub: SubWId = new SubWId(subscription.endpoint, this.arrayBufferToBase64(subscription.getKey('auth')));
-    // const sub: SubWId = new SubWId(subscription.endpoint);
+    // const sub: SubWId = new SubWId(subscription.endpoint, this.arrayBufferToBase64(subscription.getKey('auth')));
+
+    const sub: SubWId = new SubWId(subscription);
 
     console.log(sub)
 
@@ -50,19 +51,6 @@ export class PushNotificationService {
         console.error("Error: ", error);
       }
     });
-  }
-
-
-  private arrayBufferToBase64( buffer: ArrayBuffer | null) {
-    if(buffer === null)
-      return null;
-    var binary = '';
-    var bytes = new Uint8Array( buffer );
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode( bytes[ i ] );
-    }
-    return window.btoa( binary );
   }
 
 

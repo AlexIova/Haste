@@ -3,6 +3,8 @@ package com.example.BackendApplication.services;
 import com.example.BackendApplication.entities.PushSubscriptionEntity;
 import nl.martijndwars.webpush.Notification;
 import nl.martijndwars.webpush.PushService;
+import nl.martijndwars.webpush.Subscription;
+import org.apache.http.HttpResponse;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jose4j.lang.JoseException;
 
@@ -17,19 +19,40 @@ public class PushNotificationService {
     private final String privateKey = "QfCsdEHztU7T6ENipKlzraWjW0no4zbNMBBB4-leJ2Y";
     private final String publicKey = "BPvOrzmWhDt158M6axrQdd8IUY9igrqK2N2aXeRPsgYw6-iRa4C_ZawaGJuqIYp5cOUd4MSc9bK2tZqdbYrTOv4";
 
-    private PushSubscriptionEntity pse;
+    private Subscription subscription;
 
-    public PushNotificationService(PushSubscriptionEntity pse) {
-        this.pse = pse;
+    public PushNotificationService(Subscription subscription) {
+        this.subscription = subscription;
     }
 
 
     public void sendPushNotification(String message) {
         try {
             Security.addProvider(new BouncyCastleProvider());
-            PushService pushService = new PushService(publicKey, privateKey);
-            Notification notification = new Notification(pse.getEndpoint(), this.publicKey, pse.getAuth(), message);
-            System.out.println(pushService.send(notification));
+
+            PushService pushService = new PushService();
+            pushService.setPublicKey(publicKey);
+            pushService.setPrivateKey(privateKey);
+            pushService.setSubject("mailto:admin@domain.com");
+
+            String payload = "{" +
+                    "        \"notification\": {" +
+                    "            \"title\": \"Hello from the other side!\"," +
+                    "            \"body\": \"Ti prego dimmi che lo sto leggendo\"," +
+                    "            \"data\": {" +
+                    "                \"dateOfArrival\": \"2020-01-01T00:00:00\"," +
+                    "                \"primaryKey\": 1" +
+                    "            }," +
+                    "            \"actions\": [{" +
+                    "                \"action\": \"explore\"," +
+                    "                \"title\": \"Go to the site\"" +
+                    "            }]" +
+                    "        }" +
+                    "}";
+
+            Notification notification = new Notification(subscription,payload);
+            HttpResponse httpResponse = pushService.send(notification);
+            System.out.println(httpResponse);
         } catch (GeneralSecurityException | IOException | JoseException | ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }

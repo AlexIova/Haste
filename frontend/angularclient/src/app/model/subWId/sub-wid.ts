@@ -1,13 +1,11 @@
 export class SubWId {
 
     id: number;
-    endpoint: string;
-    auth: string | null;
+    subscription: string;
 
-    constructor(ep: string, k: string | null){
+    constructor(sub: PushSubscription){
         this.id = this.getRandID();
-        this.endpoint = ep;
-        this.auth = k;
+        this.subscription = JSON.stringify(sub);
     }
     
 
